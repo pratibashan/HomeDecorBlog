@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>View Posts</title>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+      <link rel="stylesheet" href="/styles.css" type="text/css"> 
+    </head>
+
+    <body class= "brown lighten-1">
+     <header>
+        <div class="navbar-fixed">
+          <nav class="brown lighten-3" role="navigation">
+              <div class="nav-wrapper container">
+                <a href="!#" data-activates="nav-mobile" class="button-collapse left no-margin"><i class="material-icons">menu</i></a>
+                <a class="brand-logo black-text">HomeDecorBlog</a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a class= "black-text" href="/post">All Posts</a></li>
+                    {{! <li><a id="" href="/post/addpost">Add Post</a></li> }}
+                    <li><a class= "black-text" href="/register">Register</a></li>
+                    <li><a class= "black-text" href="/login">Login</a></li>
+                </ul>
+              </div>
+          </nav>
+        </div>
+        <ul id="nav-mobile" class="side-nav">
+            <li><a class= "black-text" href="/post">All Posts</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            
+        </ul>
+      </header>
+    <br/><br/>
+   <main>
+        <div class='container center'>      
+            <div class="row">
+        {{#post}}  
+                <div class="col s12 m16">
+
+                    <div class="card-large" width="100%"> 
+                        <div>
+                            <span class="card-title"><h6 class="center-align">{{title}}</h6></span>
+                            <p class="center-align ">{{posted_at}}</p>
+                        </div>
+                        <div class="card-content">
+                            <p>{{content}}</p>
+                        </div>
+                        <br/>
+                        <div class="card-image" id="postDetailsImage">
+                            <img src="{{imageURL}}" class="responsive-img">
+                        </div>
+                     
+                        {{! <ul class="pagination center-align">
+                            <li class="waves-effect "><a href=""><i class="material-icons">chevron_right</i></a></li>
+                        </ul><hr>}}
+                        {{! <br/> }}
+                        
+                        <hr> 
+                        <div class="card-action">
+                                    <a class="waves-effect waves-light btn-small grey-text modal-trigger" style ="display:none" href="#updatePostModal" id="updateLink">UPDATE</a>&nbsp&nbsp
+                                    <form role="form" method="post" action="/post/delete/{{_id}}">
+                            	        
+                                    <input type="submit" class="waves-effect waves-light btn-small grey-text" style ="display:none" name="action" value="DELETE" id="deleteLink"/>
+                                    </form>&nbsp&nbsp    
+                                    <a class="waves-effect waves-light btn-small grey-text" id ="commentsDiv" href="/post/comment/{{_id}}">VIEW COMMENTS</a>   
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>    
+        <br/>
+
+<!--Posting a Comment-->  
+
+<div id="commentsDiv" class="container-fluid">           
+        <div class='container center '>
+            
+            <div class="row">
+                
+                <div class="col s12 m16">
+                        <h5 class="grey-text">Comments</h5>
+                    <form class="contact-form" method="post" action="/post/comment/{{_id}}">
+                        <div class="input-field">
+                            <input type="text" id="name" name="name">
+                            <label class="active" for="name">Name</label>
+                        </div>
+                        <div class="input-field">
+                            <input type="email" name="email" id="email" class="validate">
+                            <label class="active" for="email">Email</label>
+                        </div>
+                        <div class="input-field">
+                            <textarea type="text" name="comment" id="comment" class="materialize-textarea"></textarea>
+                            <label class="active" for="comment">comments</label>
+                        </div>    
+                        <input type="submit" class="waves-effect waves-light btn-small grey-text" name="action" value="Post Comment..."/>
+                    </form>
+                     {{/post}}
+                </div>
+            </div>   
+</div>
+
+<!--View Comments-->
+
+<div class="container-fluid" id="viewCommentsDiv">
+
+  <div class='container'> 
+        
+     
+    <div class="row">
+    {{#commentDetails}}
+        <div class="col s8 m6">
+            <div class="card-large">
+
+                <div class="card-content">
+                    <div class="card-large" width="100%">                        
+                        <div>
+                            <span class="card-title grey-text"><h6 class="left-align">{{name}}</h6></span>
+                            <h6 class="left-align  grey-text">{{posted_at}}</h6>
+                            <h6 class="left-align  grey-text">{{email}}</h6>
+                        </div>
+                        <div class="card-content  grey-text">
+                            <p class="left-align  grey-text">{{comment}}</p><br/>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/commentDetails}}    
+</div>
+</div>
+</div>
+
+<!--update a post-->
+
+    <div id="updatePostModal" class="modal modal-form">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col s12">
+                        <button type="button" class="modal-close waves-effect waves-light btn right">&times;</button>
+                        <h4><b>Update Post</b></h4>
+                    </div>
+                </div>
+            </div>
+    <div class="modal-body">
+                    {{#post}}
+      <form role="form" method="post" action="/post/update/{{_id}}">
+         <div class="row">
+          <div class="col s12"> 
+           
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="title" name="title" type="text" value="{{title}}">
+                <label for="title"><b>Title</b>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <input id="imageURL" name="imageURL" type="text"  value="{{imageURL}}">
+                <label for="ImageURL"><b>ImageURL</b>
+                </label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea type="textarea" name="content" id="content" class="materialize-textarea" value="{{content}}"></textarea>
+                <label class="active" for="content">Content</label>
+              </div>
+            </div>
+                <button class="btn waves-effect waves-light btn" type="submit" name="action">Update Post
+                <i class="material-icons right">send</i>
+                </button>
+                <button class="btn waves-effect waves-light btn" type="reset" name="reset">Reset</button> 
+            </div>
+          </div>
+        </div>
+      </form>
+      {{/post}}
+    </div>
+  </div>
+</div>  
+       {{! <div style="height:500px"></div> }}
+</main>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+       
+         <!--init modal-->
+       <script>
+            $(document).ready(function() {
+
+                $(".button-collapse").sideNav()
+
+                $('.modal').modal()
+
+                 $("#commentsDiv").click(function(e){
+                 e.preventDefault()
+                    $('#viewCommentsDiv').load($(this).attr("href"))
+                    }) 
+
+
+                // if(req.session.userId){
+                   // $("#updateLink").show()
+                //$("#updateLink").click(function(e){
+                   // e.preventDefault()
+                    //$('#updatePostModal').load($(this).attr("href"))
+                    //})  
+            })
+        </script>
+        
+    </body>
+</html>

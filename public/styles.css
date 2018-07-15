@@ -1,0 +1,50 @@
+/* header, main, footer {
+    padding-left: 300px;
+  }
+ 
+  @media only screen and (max-width : 992px) {
+    header, main, footer {
+        margin-left: 500px;
+    }
+  }
+ 
+  */
+ /**
+  * helper Classes
+  */
+ /* .no-margin {
+   margin: 0px !important;
+ } */
+
+ #registerBody {
+  height:100%;
+  background-image: url(decorating-with-white-layering-of-neutrals.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#loginBody {
+  height:100%;
+  background-image: url(hot-3d-luxury-wood-blocks-effect-brown-stone.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+#regLoginFormDiv{
+  opacity: 0.92;
+  margin-top:100px;
+  padding:50px;
+}
+
+#commentsDiv{
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+.card-image{
+    height: 300px; 
+    overflow: hidden;
+}
+#postDetailsImage{
+  height:800px;
+  width:100%;
+}
