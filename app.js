@@ -19,10 +19,13 @@ app.use(
     saveUninitialized: false
   })
 );
-
-//mongoose.connect('mongodb://pratiba:Spring@123456@ds135441.mlab.com:35441/homedecorblogdb').then(() => {
+//mlab connection
 mongoose
-  .connect("mongodb://localhost/blogdb")
+  .connect(
+    "mongodb://homebloguser:password1@ds137102.mlab.com:37102/homeblogdb"
+  )
+  //connection for local mongodb
+  //mongoose.connect("mongodb://localhost/blogdb")
   .then(() => {
     console.log("Connected to Database");
   })
